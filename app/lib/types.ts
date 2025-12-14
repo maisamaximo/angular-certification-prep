@@ -1,4 +1,4 @@
-export type LevelKey = "entry" | "meet" | "senior"
+export type LevelKey = "entry" | "mid" | "senior"
 
 export type Question = {
     id: string

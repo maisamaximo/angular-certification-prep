@@ -6,20 +6,20 @@ import LevelTabs from "@/app/components/LevelTabs"
 import QuizCard from "@/app/components/QuizCard"
 import ToastBar from "@/app/components/ToastBar"
 import entry from "@/app/data/entry.json"
-import meet from "@/app/data/mid.json"
+import mid from "@/app/data/mid.json"
 import senior from "@/app/data/senior.json"
 import type { LevelKey, QuizData, PersistedLevelState } from "@/app/lib/types"
 import { clearAllStates, loadLevelState, saveLevelState } from "@/app/lib/storage"
 
 const DATA: Record<LevelKey, QuizData> = {
     entry: entry as QuizData,
-    meet: meet as QuizData,
+    mid: mid as QuizData,
     senior: senior as QuizData
 }
 
 function accentOf(level: LevelKey) {
     if (level === "entry") return "var(--entry)"
-    if (level === "meet") return "var(--meet)"
+    if (level === "mid") return "var(--mid)"
     return "var(--senior)"
 }
 
@@ -82,8 +82,8 @@ function normalizeState(level: LevelKey, incoming: PersistedLevelState | null): 
 }
 
 export default function Page() {
-    const [level, setLevel] = useState<LevelKey>("meet")
-    const [state, setState] = useState<PersistedLevelState>(() => buildInitialState("meet"))
+    const [level, setLevel] = useState<LevelKey>("mid")
+    const [state, setState] = useState<PersistedLevelState>(() => buildInitialState("mid"))
 
     const [toastOpen, setToastOpen] = useState(false)
     const [toastKind, setToastKind] = useState<"success" | "error">("success")
@@ -116,8 +116,8 @@ export default function Page() {
 
     function refreshAll() {
         clearAllStates()
-        setLevel("meet")
-        setState(buildInitialState("meet"))
+        setLevel("mid")
+        setState(buildInitialState("mid"))
         setToastOpen(false)
 
         if (autoNext.current) {

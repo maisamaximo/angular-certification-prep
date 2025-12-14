@@ -21,6 +21,6 @@ export function saveLevelState(state: PersistedLevelState) {
 export function clearAllStates() {
     if (typeof window === "undefined") return
     window.localStorage.removeItem(keyOf("entry"))
-    window.localStorage.removeItem(keyOf("meet"))
+    window.localStorage.removeItem(keyOf("mid`"))
     window.localStorage.removeItem(keyOf("senior"))
 }

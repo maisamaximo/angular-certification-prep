@@ -9,12 +9,12 @@ type Props = {
 
 const levels: Array<{ key: LevelKey; label: string }> = [
     { key: "entry", label: "Entry" },
-    { key: "meet", label: "Meet" },
+    { key: "mid", label: "Mid" },
     { key: "senior", label: "Senior" }
 ]
 
 const colorOf = (k: LevelKey) =>
-    k === "entry" ? "var(--entry)" : k === "meet" ? "var(--meet)" : "var(--senior)"
+    k === "entry" ? "var(--entry)" : k === "mid" ? "var(--mid)" : "var(--senior)"
 
 export default function LevelTabs({ level, onChange }: Props) {
     return (
