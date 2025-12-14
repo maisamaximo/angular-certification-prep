@@ -34,9 +34,56 @@ function buildInitialState(level: LevelKey): PersistedLevelState {
     }
 }
 
+function toIndex(v: unknown): number | null {
+    if (typeof v === "number" && Number.isFinite(v)) return v
+    if (typeof v === "string" && v.trim() !== "" && Number.isFinite(Number(v))) return Number(v)
+    return null
+}
+
+function correctIndexOf(q: any): number | null {
+    return toIndex(q?.correctIndex)
+}
+
+function normalizeState(level: LevelKey, incoming: PersistedLevelState | null): PersistedLevelState {
+    const base = buildInitialState(level)
+    if (!incoming) return base
+
+    const total = DATA[level].questions.length
+
+    const answers = Array.from({ length: total }, (_, i) => {
+        const v = incoming.answers?.[i]
+        return toIndex(v)
+    })
+
+    const submitted = Array.from({ length: total }, (_, i) => {
+        const v = incoming.submitted?.[i]
+        return typeof v === "boolean" ? v : false
+    })
+
+    const currentIndex =
+        typeof incoming.currentIndex === "number"
+            ? Math.max(0, Math.min(incoming.currentIndex, total - 1))
+            : 0
+
+    const score = DATA[level].questions.reduce((acc, q, i) => {
+        const c = correctIndexOf(q)
+        if (c === null) return acc
+        return acc + (answers[i] === c ? 1 : 0)
+    }, 0)
+
+    return {
+        ...base,
+        level,
+        currentIndex,
+        answers,
+        submitted,
+        score
+    }
+}
+
 export default function Page() {
     const [level, setLevel] = useState<LevelKey>("meet")
-    const [state, setState] = useState(buildInitialState("meet"))
+    const [state, setState] = useState<PersistedLevelState>(() => buildInitialState("meet"))
 
     const [toastOpen, setToastOpen] = useState(false)
     const [toastKind, setToastKind] = useState<"success" | "error">("success")
@@ -53,8 +100,14 @@ export default function Page() {
 
     useEffect(() => {
         const saved = loadLevelState(level)
-        setState(saved ?? buildInitialState(level))
+        const normalized = normalizeState(level, saved)
+        setState(normalized)
         setToastOpen(false)
+
+        if (autoNext.current) {
+            window.clearTimeout(autoNext.current)
+            autoNext.current = null
+        }
     }, [level])
 
     useEffect(() => {
@@ -66,6 +119,11 @@ export default function Page() {
         setLevel("meet")
         setState(buildInitialState("meet"))
         setToastOpen(false)
+
+        if (autoNext.current) {
+            window.clearTimeout(autoNext.current)
+            autoNext.current = null
+        }
     }
 
     function onSelect(index: number) {
@@ -80,7 +138,8 @@ export default function Page() {
     function submit() {
         if (selectedIndex === null || isSubmitted) return
 
-        const correct = current.correctIndex === selectedIndex
+        const c = correctIndexOf(current)
+        const correct = c !== null && selectedIndex === c
 
         setState((s) => {
             const submitted = [...s.submitted]
@@ -92,16 +151,37 @@ export default function Page() {
         setToastMessage(correct ? "Correct" : "Wrong")
         setToastOpen(true)
 
+        if (autoNext.current) window.clearTimeout(autoNext.current)
+
         autoNext.current = window.setTimeout(() => {
             setToastOpen(false)
             setState((s) => ({
                 ...s,
                 currentIndex: Math.min(s.currentIndex + 1, total - 1)
             }))
+            autoNext.current = null
         }, 900)
     }
 
     const finished = state.submitted.every(Boolean)
+
+    const computedScore = quiz.questions.reduce((acc, q, i) => {
+        const c = correctIndexOf(q)
+        if (c === null) return acc
+        return acc + (state.answers[i] === c ? 1 : 0)
+    }, 0)
+
+    const percent = Math.round((computedScore / total) * 100)
+
+    const wrongQuestions = quiz.questions
+        .map((q, idx) => {
+            const user = state.answers[idx]
+            const c = correctIndexOf(q)
+            const wrong = c === null ? false : user !== c
+            return { q, idx, user, c, wrong }
+        })
+        .filter((x) => x.c !== null && x.wrong)
+
     const progress = Math.round(((state.currentIndex + 1) / total) * 100)
 
     return (
@@ -120,7 +200,6 @@ export default function Page() {
                 </button>
             </div>
 
-            {/* Progress bar */}
             <div className="progressBar">
                 <div
                     className="progressFill"
@@ -163,29 +242,59 @@ export default function Page() {
                         Submit
                     </button>
 
-                    <div className="footerHint">
-                        Answers are saved automatically in localStorage
-                    </div>
+                    <div className="footerHint">Answers are saved automatically in localStorage</div>
                 </>
             )}
 
             {finished && (
                 <>
-                    {quiz.questions.map((q, idx) => {
-                        const user = state.answers[idx]
-                        if (user === q.correctIndex) return null
+                    <div className="card" style={{ marginBottom: 18 }}>
+                        <div className="cardInner">
+                            <h1 className="questionTitle">Result</h1>
 
-                        return (
-                            <QuizCard
-                                key={q.id}
-                                question={q}
-                                selectedIndex={user}
-                                correctIndex={q.correctIndex}
-                                isSubmitted
-                                isReview
-                            />
-                        )
-                    })}
+                            <div
+                                style={{
+                                    fontSize: 18,
+                                    fontWeight: 800,
+                                    color: "rgba(255,255,255,0.78)",
+                                    marginBottom: 10
+                                }}
+                            >
+                                You got <span style={{ color: "rgba(255,255,255,0.92)" }}>{computedScore}</span> out of{" "}
+                                <span style={{ color: "rgba(255,255,255,0.92)" }}>{total}</span>
+                            </div>
+
+                            <div style={{ fontSize: 18, fontWeight: 800, color: "rgba(255,255,255,0.78)" }}>
+                                Percentage <span style={{ color: "rgba(255,255,255,0.92)" }}>{percent}%</span>
+                            </div>
+
+                            <button className="cta" style={{ background: accentOf(level) }} onClick={refreshAll}>
+                                Restart
+                            </button>
+                        </div>
+                    </div>
+
+                    {wrongQuestions.length === 0 && (
+                        <div className="card">
+                            <div className="cardInner">
+                                <h1 className="questionTitle">Review</h1>
+                                <div style={{ fontSize: 18, fontWeight: 800, color: "rgba(255,255,255,0.78)" }}>
+                                    All correct 🎉
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {wrongQuestions.map(({ q, user, c }) => (
+                        <QuizCard
+                            key={q.id}
+                            question={q}
+                            selectedIndex={typeof user === "number" ? user : null}
+                            correctIndex={typeof c === "number" ? c : undefined}
+                            isSubmitted
+                            isReview
+                        />
+                    ))}
                 </>
             )}
         </div>

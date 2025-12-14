@@ -4,15 +4,283 @@
   "questions": [
     {
       "id": "q1",
-      "title": "Which directive is used for conditional rendering in Angular templates",
+      "title": "Which directive is used for conditional rendering in Angular templates?",
       "options": ["*ngIf", "*ngFor", "ngModel", "routerLink"],
       "correctIndex": 0
     },
     {
       "id": "q2",
-      "title": "Which file typically defines the root component in an Angular project",
+      "title": "Which file typically defines the root component in an Angular project?",
       "options": ["main.ts", "app.component.ts", "angular.json", "tsconfig.json"],
       "correctIndex": 1
+    },
+    {
+      "id": "q3",
+      "title": "Which Angular CLI command creates a new component?",
+      "options": ["ng new component", "ng add component", "ng generate component", "ng build component"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q4",
+      "title": "What decorator is used to define an Angular component?",
+      "options": ["@NgModule", "@Component", "@Directive", "@Injectable"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q5",
+      "title": "Which symbol is used for property binding in Angular templates?",
+      "options": ["()", "[]", "{{}}", "#"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q6",
+      "title": "Which symbol is used for event binding in Angular?",
+      "options": ["[]", "{{}}", "()", "#"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q7",
+      "title": "What does interpolation {{ }} do in Angular?",
+      "options": [
+        "Binds an event to a method",
+        "Displays a variable value in the template",
+        "Defines a directive",
+        "Creates a component"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q8",
+      "title": "Which file contains the Angular project configuration?",
+      "options": ["package.json", "angular.json", "tsconfig.json", "main.ts"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q9",
+      "title": "Which directive is used to loop over a list?",
+      "options": ["*ngIf", "*ngSwitch", "*ngFor", "ngModel"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q10",
+      "title": "Which language is primarily used to write Angular applications?",
+      "options": ["JavaScript", "TypeScript", "Python", "Java"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q11",
+      "title": "Which file bootstraps the Angular application?",
+      "options": ["app.module.ts", "main.ts", "index.html", "polyfills.ts"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q12",
+      "title": "What is the selector used for in an Angular component?",
+      "options": [
+        "To style the component",
+        "To define routes",
+        "To insert the component in HTML",
+        "To fetch data"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "q13",
+      "title": "Which directive enables two-way data binding?",
+      "options": ["ngIf", "ngFor", "ngModel", "ngClass"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q14",
+      "title": "Which Angular file is responsible for dependency injection configuration?",
+      "options": ["main.ts", "app.module.ts", "angular.json", "index.html"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q15",
+      "title": "What does *ngIf do?",
+      "options": [
+        "Loops through items",
+        "Conditionally renders elements",
+        "Applies CSS classes",
+        "Binds form data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q16",
+      "title": "Which CLI command starts the development server?",
+      "options": ["ng start", "ng serve", "ng build", "ng test"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q17",
+      "title": "Which decorator is used to define a service?",
+      "options": ["@Service", "@Injectable", "@Component", "@NgModule"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q18",
+      "title": "Which file contains the HTML template of a component?",
+      "options": [
+        "component.ts",
+        "component.html",
+        "component.css",
+        "component.spec.ts"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q19",
+      "title": "Which Angular feature allows you to reuse UI logic?",
+      "options": ["Modules", "Components", "Services", "Directives"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q20",
+      "title": "Which directive is used for applying CSS classes dynamically?",
+      "options": ["ngStyle", "ngClass", "ngIf", "ngFor"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q21",
+      "title": "What is Angular?",
+      "options": [
+        "A database",
+        "A JavaScript framework",
+        "A CSS library",
+        "A backend language"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q22",
+      "title": "Which file defines application routes?",
+      "options": ["app.component.ts", "app-routing.module.ts", "main.ts", "angular.json"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q23",
+      "title": "Which symbol is used for template reference variables?",
+      "options": ["@", "#", "$", "&"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q24",
+      "title": "Which directive is used to switch between multiple views?",
+      "options": ["*ngIf", "*ngSwitch", "*ngFor", "routerLink"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q25",
+      "title": "What does ngOnInit do?",
+      "options": [
+        "Runs when the component is destroyed",
+        "Runs after component initialization",
+        "Runs on every change detection",
+        "Runs before the constructor"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q26",
+      "title": "Which file contains global styles in an Angular project?",
+      "options": ["styles.css", "main.ts", "angular.json", "polyfills.ts"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q27",
+      "title": "Which Angular CLI command builds the project for production?",
+      "options": ["ng serve", "ng test", "ng build", "ng lint"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q28",
+      "title": "Which decorator marks a class as an Angular module?",
+      "options": ["@Component", "@Injectable", "@NgModule", "@Directive"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q29",
+      "title": "What is the purpose of routerLink?",
+      "options": [
+        "To define a route",
+        "To navigate between routes",
+        "To protect routes",
+        "To preload modules"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q30",
+      "title": "Which file contains the main HTML page?",
+      "options": ["index.html", "main.ts", "app.component.html", "angular.json"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q31",
+      "title": "Which Angular feature handles form input?",
+      "options": ["Routing", "Services", "Forms", "Pipes"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q32",
+      "title": "Which pipe transforms text to uppercase?",
+      "options": ["lowercase", "capitalize", "uppercase", "titlecase"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q33",
+      "title": "Which lifecycle hook runs when a component is destroyed?",
+      "options": ["ngOnInit", "ngOnDestroy", "ngAfterViewInit", "ngDoCheck"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q34",
+      "title": "Which Angular feature helps share data between components?",
+      "options": ["Services", "Templates", "Pipes", "Styles"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q35",
+      "title": "Which directive binds inline styles dynamically?",
+      "options": ["ngStyle", "ngClass", "ngIf", "ngFor"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q36",
+      "title": "What does HttpClient do in Angular?",
+      "options": [
+        "Handles routing",
+        "Manages forms",
+        "Makes HTTP requests",
+        "Creates components"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "q37",
+      "title": "Which Angular CLI command runs unit tests?",
+      "options": ["ng build", "ng test", "ng serve", "ng e2e"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q38",
+      "title": "Which decorator allows data to be passed into a component?",
+      "options": ["@Output", "@Input", "@Inject", "@HostBinding"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q39",
+      "title": "Which decorator emits events from a component?",
+      "options": ["@Input", "@Emit", "@Output", "@Event"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q40",
+      "title": "Which Angular feature formats data in templates?",
+      "options": ["Services", "Directives", "Pipes", "Modules"],
+      "correctIndex": 2
     }
   ]
 }

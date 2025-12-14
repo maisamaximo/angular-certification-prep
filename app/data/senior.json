@@ -3,15 +3,380 @@
   "title": "Senior Level",
   "questions": [
     {
-      "id": "q1",
-      "title": "Which RxJS operator is commonly used to share a single subscription among multiple subscribers",
-      "options": ["shareReplay", "map", "filter", "scan"],
+      "id": "s1",
+      "title": "What is the primary goal of Angular Signals?",
+      "options": [
+        "Replace RxJS entirely",
+        "Enable fine-grained reactive state updates",
+        "Improve template syntax readability",
+        "Remove change detection"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s2",
+      "title": "Which Angular API is used to derive reactive values from signals?",
+      "options": ["effect()", "computed()", "signal()", "toObservable()"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s3",
+      "title": "In a signal-based architecture, where should side effects be handled?",
+      "options": [
+        "Inside computed()",
+        "Inside effect()",
+        "Inside templates",
+        "Inside signal setters"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s4",
+      "title": "What problem do container/presentation components solve?",
+      "options": [
+        "Improving styling reuse",
+        "Separating state management from UI rendering",
+        "Reducing bundle size",
+        "Replacing services"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s5",
+      "title": "When using Redux-style state management with Angular, what is the role of selectors?",
+      "options": [
+        "Trigger side effects",
+        "Expose derived state to components",
+        "Dispatch actions",
+        "Persist state"
+      ],
+      "correctIndex": 1
+    },
+
+    {
+      "id": "s6",
+      "title": "What is a key advantage of Angular standalone components?",
+      "options": [
+        "They eliminate the need for services",
+        "They can be lazy-loaded without NgModules",
+        "They replace dependency injection",
+        "They only work with Signals"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s7",
+      "title": "Which lifecycle hook runs after projected content has been initialized?",
+      "options": [
+        "ngAfterViewInit",
+        "ngAfterContentInit",
+        "ngOnInit",
+        "ngDoCheck"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s8",
+      "title": "What is the main benefit of content projection?",
+      "options": [
+        "Dynamic styling",
+        "Reusing component layout with external content",
+        "Improving performance",
+        "Avoiding change detection"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s9",
+      "title": "Why is the async pipe preferred over manual subscriptions?",
+      "options": [
+        "It improves HTTP performance",
+        "It automatically manages subscriptions and change detection",
+        "It works only with Signals",
+        "It replaces RxJS operators"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s10",
+      "title": "What happens when an async pipe receives a new observable reference?",
+      "options": [
+        "Nothing",
+        "It unsubscribes from the old observable and subscribes to the new one",
+        "It throws an error",
+        "It caches both observables"
+      ],
+      "correctIndex": 1
+    },
+
+    {
+      "id": "s11",
+      "title": "What is the purpose of an InjectionToken?",
+      "options": [
+        "To inject components",
+        "To inject non-class dependencies",
+        "To replace services",
+        "To scope providers"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s12",
+      "title": "What does providing a service at the component level do?",
+      "options": [
+        "Creates a singleton for the entire app",
+        "Creates a new instance per component instance",
+        "Disables dependency injection",
+        "Makes the service global"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s13",
+      "title": "What is a structural directive responsible for?",
+      "options": [
+        "Modifying DOM structure",
+        "Styling elements",
+        "Handling events",
+        "Managing HTTP calls"
+      ],
       "correctIndex": 0
     },
     {
-      "id": "q2",
-      "title": "In Angular what is the main benefit of OnPush change detection",
-      "options": ["Faster builds", "Reduced change detection work", "Better routing", "Smaller bundle always"],
+      "id": "s14",
+      "title": "Which API is recommended for DOM interaction inside directives?",
+      "options": ["document", "window", "ElementRef + Renderer2", "querySelector"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s15",
+      "title": "Why should Renderer2 be used instead of direct DOM access?",
+      "options": [
+        "It improves performance",
+        "It ensures platform abstraction and security",
+        "It is required for Signals",
+        "It replaces CSS"
+      ],
+      "correctIndex": 1
+    },
+
+    {
+      "id": "s16",
+      "title": "Which JavaScript concept enables closures and encapsulation?",
+      "options": ["Prototypes", "Closures", "Promises", "Hoisting"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s17",
+      "title": "What does the TypeScript 'never' type represent?",
+      "options": [
+        "A variable that can be null",
+        "A function that never returns",
+        "A deprecated type",
+        "A runtime-only value"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s18",
+      "title": "Which TypeScript feature allows creating reusable constrained types?",
+      "options": ["Interfaces", "Union types", "Generics", "Enums"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s19",
+      "title": "What does the 'as const' assertion do?",
+      "options": [
+        "Freezes objects at runtime",
+        "Narrows types to literal values",
+        "Improves performance",
+        "Disables mutation"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s20",
+      "title": "Which JavaScript feature allows lazy asynchronous execution?",
+      "options": ["Promises", "Async/Await", "Generators", "Observables"],
+      "correctIndex": 3
+    },
+
+    {
+      "id": "s21",
+      "title": "What is the main benefit of lazy-loaded routes?",
+      "options": [
+        "Better SEO",
+        "Reduced initial bundle size",
+        "Simpler navigation",
+        "Improved styling"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s22",
+      "title": "Which Angular router API enables standalone lazy loading?",
+      "options": ["loadModule", "loadChildren", "loadComponent", "resolve"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s23",
+      "title": "What is the purpose of route resolvers?",
+      "options": [
+        "Protect routes",
+        "Fetch data before route activation",
+        "Lazy-load components",
+        "Handle errors"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s24",
+      "title": "Which guard prevents navigation away from a route?",
+      "options": ["CanActivate", "CanLoad", "CanDeactivate", "Resolve"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s25",
+      "title": "What does preloadingStrategy affect?",
+      "options": [
+        "Form validation",
+        "Lazy-loaded module loading timing",
+        "Change detection",
+        "HTTP caching"
+      ],
+      "correctIndex": 1
+    },
+
+    {
+      "id": "s26",
+      "title": "Which strategy reduces unnecessary change detection cycles?",
+      "options": [
+        "Default change detection",
+        "OnPush",
+        "Zone.js",
+        "ngDoCheck"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s27",
+      "title": "What is a common security risk Angular helps mitigate by default?",
+      "options": ["SQL injection", "XSS", "CSRF", "DDoS"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s28",
+      "title": "Which Angular testing utility creates a lightweight test host?",
+      "options": ["TestBed", "Spectator", "Jasmine", "Karma"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s29",
+      "title": "What should unit tests focus on?",
+      "options": [
+        "Implementation details",
+        "Public behavior and outputs",
+        "Styling",
+        "Browser APIs"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s30",
+      "title": "Which Angular API helps optimize large lists rendering?",
+      "options": ["trackBy", "ngIf", "async pipe", "signal()"],
+      "correctIndex": 0
+    },
+
+    {
+      "id": "s31",
+      "title": "What is the purpose of switchMap in RxJS?",
+      "options": [
+        "Map values synchronously",
+        "Cancel previous inner observables",
+        "Merge multiple observables",
+        "Cache results"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s32",
+      "title": "Which RxJS operator is best suited for dependent HTTP calls?",
+      "options": ["mergeMap", "concatMap", "switchMap", "map"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s33",
+      "title": "What does debounceTime help prevent?",
+      "options": [
+        "Memory leaks",
+        "Too many rapid emissions",
+        "Change detection",
+        "Subscription errors"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s34",
+      "title": "Which Angular interface must a custom form control implement?",
+      "options": ["FormControl", "NgControl", "ControlValueAccessor", "Validator"],
+      "correctIndex": 2
+    },
+    {
+      "id": "s35",
+      "title": "What is the role of registerOnChange in ControlValueAccessor?",
+      "options": [
+        "Validate input",
+        "Notify Angular of value changes",
+        "Initialize the control",
+        "Destroy the control"
+      ],
+      "correctIndex": 1
+    },
+
+    {
+      "id": "s36",
+      "title": "What is a benefit of using typed reactive forms?",
+      "options": [
+        "Smaller bundles",
+        "Runtime validation",
+        "Improved type safety and DX",
+        "Faster rendering"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "s37",
+      "title": "Which Angular feature enables zoneless change detection?",
+      "options": ["RxJS", "Signals", "NgModules", "HttpClient"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s38",
+      "title": "Why is immutable state recommended in Angular applications?",
+      "options": [
+        "It is required by Angular",
+        "It simplifies change detection and debugging",
+        "It improves CSS encapsulation",
+        "It replaces services"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "s39",
+      "title": "Which tool helps analyze Angular bundle size?",
+      "options": ["Angular DevTools", "Webpack Bundle Analyzer", "Jasmine", "RxJS DevTools"],
+      "correctIndex": 1
+    },
+    {
+      "id": "s40",
+      "title": "What is the main responsibility of a smart/container component?",
+      "options": [
+        "Rendering UI only",
+        "Managing state and orchestration",
+        "Handling styles",
+        "Replacing services"
+      ],
       "correctIndex": 1
     }
   ]
