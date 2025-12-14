@@ -42,14 +42,21 @@ export default function QuizCard({
 
                 <div className="answersPanel">
                     {question.options.map((opt, idx) => {
-                        const selected = selectedIndex === idx
-                        const correct = idx === correctIndex
+                        const isSelected = selectedIndex === idx
+                        const isCorrect = typeof correctIndex === "number" && idx === correctIndex
+                        const isWrongSelected = isSelected && typeof correctIndex === "number" && idx !== correctIndex
 
                         let className = "answerRow"
-                        if (selected) className += " answerRowSelected"
+                        if (isSelected) className += " answerRowSelected"
 
-                        if (isReview && selected) {
-                            className += correct ? " reviewCorrect" : " reviewWrong"
+                        // Review styling rules:
+                        // - correct option -> green
+                        // - user's wrong selection -> red
+                        // - if user was correct, their selected option is also correct -> green
+                        if (isReview) {
+                            className += " reviewRow"
+                            if (isCorrect) className += " reviewCorrect"
+                            if (isWrongSelected) className += " reviewWrong"
                         }
 
                         return (
@@ -57,9 +64,7 @@ export default function QuizCard({
                                 key={`${question.id}_${idx}`}
                                 className={className}
                                 onClick={() => {
-                                    if (!isReview && !isSubmitted && onSelect) {
-                                        onSelect(idx)
-                                    }
+                                    if (!isReview && !isSubmitted && onSelect) onSelect(idx)
                                 }}
                                 style={{ cursor: isReview ? "default" : "pointer" }}
                             >
@@ -70,6 +75,17 @@ export default function QuizCard({
                                 )}
 
                                 <span className="answerText">{opt}</span>
+
+                                {/* No review mode, show small tags on the right for clarity */}
+                                {isReview && (
+                                    <span className="reviewTags">
+                    {isWrongSelected && <span className="reviewTag reviewTagWrong">Your answer</span>}
+                                        {isCorrect && <span className="reviewTag reviewTagCorrect">Correct</span>}
+                                        {!isWrongSelected && !isCorrect && isSelected && (
+                                            <span className="reviewTag reviewTagNeutral">Selected</span>
+                                        )}
+                  </span>
+                                )}
                             </div>
                         )
                     })}

@@ -265,3 +265,49 @@ body{
 .reviewWrong{
     background: rgba(239,68,68,0.14) !important;
 }
+
+/* Review mode helpers (added only) */
+.reviewRow{
+    cursor: default;
+}
+
+.reviewCorrect{
+    background: rgba(34,197,94,0.14) !important;
+}
+
+.reviewWrong{
+    background: rgba(239,68,68,0.14) !important;
+}
+
+/* Small tags on the right in review rows */
+.reviewTags{
+    margin-left:auto;
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.reviewTag{
+    font-size:12px;
+    font-weight:800;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.80);
+    background: rgba(255,255,255,0.06);
+}
+
+.reviewTagCorrect{
+    border-color: rgba(34,197,94,0.35);
+    background: rgba(34,197,94,0.14);
+}
+
+.reviewTagWrong{
+    border-color: rgba(239,68,68,0.35);
+    background: rgba(239,68,68,0.14);
+}
+
+.reviewTagNeutral{
+    border-color: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+}

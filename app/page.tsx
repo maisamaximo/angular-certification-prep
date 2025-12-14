@@ -50,15 +50,8 @@ function normalizeState(level: LevelKey, incoming: PersistedLevelState | null): 
 
     const total = DATA[level].questions.length
 
-    const answers = Array.from({ length: total }, (_, i) => {
-        const v = incoming.answers?.[i]
-        return toIndex(v)
-    })
-
-    const submitted = Array.from({ length: total }, (_, i) => {
-        const v = incoming.submitted?.[i]
-        return typeof v === "boolean" ? v : false
-    })
+    const answers = Array.from({ length: total }, (_, i) => toIndex(incoming.answers?.[i]))
+    const submitted = Array.from({ length: total }, (_, i) => (typeof incoming.submitted?.[i] === "boolean" ? incoming.submitted[i] : false))
 
     const currentIndex =
         typeof incoming.currentIndex === "number"
@@ -71,14 +64,7 @@ function normalizeState(level: LevelKey, incoming: PersistedLevelState | null): 
         return acc + (answers[i] === c ? 1 : 0)
     }, 0)
 
-    return {
-        ...base,
-        level,
-        currentIndex,
-        answers,
-        submitted,
-        score
-    }
+    return { ...base, level, currentIndex, answers, submitted, score }
 }
 
 export default function Page() {
@@ -100,8 +86,7 @@ export default function Page() {
 
     useEffect(() => {
         const saved = loadLevelState(level)
-        const normalized = normalizeState(level, saved)
-        setState(normalized)
+        setState(normalizeState(level, saved))
         setToastOpen(false)
 
         if (autoNext.current) {
@@ -173,25 +158,11 @@ export default function Page() {
 
     const percent = Math.round((computedScore / total) * 100)
 
-    const wrongQuestions = quiz.questions
-        .map((q, idx) => {
-            const user = state.answers[idx]
-            const c = correctIndexOf(q)
-            const wrong = c === null ? false : user !== c
-            return { q, idx, user, c, wrong }
-        })
-        .filter((x) => x.c !== null && x.wrong)
-
     const progress = Math.round(((state.currentIndex + 1) / total) * 100)
 
     return (
         <div className="container">
-            <ToastBar
-                show={toastOpen}
-                message={toastMessage}
-                kind={toastKind}
-                accent={accentOf(level)}
-            />
+            <ToastBar show={toastOpen} message={toastMessage} kind={toastKind} accent={accentOf(level)} />
 
             <div className="topRow">
                 <LevelTabs level={level} onChange={setLevel} />
@@ -201,10 +172,7 @@ export default function Page() {
             </div>
 
             <div className="progressBar">
-                <div
-                    className="progressFill"
-                    style={{ width: `${progress}%`, background: accentOf(level) }}
-                />
+                <div className="progressFill" style={{ width: `${progress}%`, background: accentOf(level) }} />
             </div>
 
             <div className="levelTitleRow">
@@ -224,12 +192,7 @@ export default function Page() {
                             exit={{ x: -32, opacity: 0 }}
                             transition={{ duration: 0.28, ease: "easeOut" }}
                         >
-                            <QuizCard
-                                question={current}
-                                selectedIndex={selectedIndex}
-                                isSubmitted={isSubmitted}
-                                onSelect={onSelect}
-                            />
+                            <QuizCard question={current} selectedIndex={selectedIndex} isSubmitted={isSubmitted} onSelect={onSelect} />
                         </motion.div>
                     </AnimatePresence>
 
@@ -252,14 +215,7 @@ export default function Page() {
                         <div className="cardInner">
                             <h1 className="questionTitle">Result</h1>
 
-                            <div
-                                style={{
-                                    fontSize: 18,
-                                    fontWeight: 800,
-                                    color: "rgba(255,255,255,0.78)",
-                                    marginBottom: 10
-                                }}
-                            >
+                            <div style={{ fontSize: 18, fontWeight: 800, color: "rgba(255,255,255,0.78)", marginBottom: 10 }}>
                                 You got <span style={{ color: "rgba(255,255,255,0.92)" }}>{computedScore}</span> out of{" "}
                                 <span style={{ color: "rgba(255,255,255,0.92)" }}>{total}</span>
                             </div>
@@ -274,27 +230,22 @@ export default function Page() {
                         </div>
                     </div>
 
-                    {wrongQuestions.length === 0 && (
-                        <div className="card">
-                            <div className="cardInner">
-                                <h1 className="questionTitle">Review</h1>
-                                <div style={{ fontSize: 18, fontWeight: 800, color: "rgba(255,255,255,0.78)" }}>
-                                    All correct 🎉
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    {/* Review ALL questions */}
+                    {quiz.questions.map((q, idx) => {
+                        const user = state.answers[idx]
+                        const c = correctIndexOf(q)
 
-                    {wrongQuestions.map(({ q, user, c }) => (
-                        <QuizCard
-                            key={q.id}
-                            question={q}
-                            selectedIndex={typeof user === "number" ? user : null}
-                            correctIndex={typeof c === "number" ? c : undefined}
-                            isSubmitted
-                            isReview
-                        />
-                    ))}
+                        return (
+                            <QuizCard
+                                key={q.id}
+                                question={q}
+                                selectedIndex={typeof user === "number" ? user : null}
+                                correctIndex={typeof c === "number" ? c : undefined}
+                                isSubmitted
+                                isReview
+                            />
+                        )
+                    })}
                 </>
             )}
         </div>
