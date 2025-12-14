@@ -13,6 +13,339 @@
       "title": "Which lifecycle hook runs after Angular has initialized all data bound properties",
       "options": ["ngOnInit", "ngAfterViewInit", "ngDoCheck", "ngOnDestroy"],
       "correctIndex": 0
+    },
+    {
+      "id": "q3",
+      "title": "Which CLI command should we run to compile and serve our project locally in development mode?",
+      "options": ["ng development", "ng serve", "ng build", "ng deploy"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q4",
+      "title": "What does Angular refer to?",
+      "options": [
+        "Version 3 of the framework",
+        "Version 16 of the framework",
+        "The latest version of the framework (Angular 2+)",
+        "Version 1 of the framework"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "q5",
+      "title": "Which of the following file names does not follow the Angular style-guide conventions?",
+      "options": [
+        "highlight-all.directive.ts",
+        "uppercase-pipe.ts",
+        "app.component.ts",
+        "name.service.ts"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q6",
+      "title": "Which one of the following is not a valid Angular CLI command?",
+      "options": ["ng fix", "ng add", "ng test", "ng build"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q7",
+      "title": "Which one of these concepts does not exist in the Angular framework?",
+      "options": [
+        "Structural directives",
+        "Standalone components",
+        "NgModules",
+        "Redux reducers"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q8",
+      "title": "Which of the following statements is true?",
+      "options": [
+        "Pipes are used to format data such as dates and numbers",
+        "Services link components to server-side HTML templates",
+        "Component libraries cannot be customized to our needs",
+        "Directives are a way to interact with server-side APIs"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "q9",
+      "title": "What's the main language of the Angular framework?",
+      "options": ["TypeScript", "AppScript", "JavaScript", "JSP"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q10",
+      "title": "Which @NgModule decorator option defines the main component of an Angular application?",
+      "options": [
+        "main: [AppComponent]",
+        "bootstrap: [AppComponent]",
+        "start: AppComponent",
+        "bootstrap: AppComponent"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q11",
+      "title": "Which @for block option is required?",
+      "options": ["trackBy", "track", "count", "$index"],
+      "correctIndex": 1
+    },
+    {
+      "id": "q12",
+      "title": "Which of the following options is not a valid Angular selector?",
+      "options": [".header", "app-header", "ng-header", "[header]:not(div)"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q13",
+      "title": "What is the decorator used to pass data to a component?",
+      "options": ["@Input()", "@Data()", "@Model()", "@Prop()"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q14",
+      "title": "Which of these HTML template examples would automatically render the latest value of data when data changes?",
+      "options": ["[value]=\"data\"", "([ngModel])=\"data\"", "(click)=\"data\"", "{data}"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q15",
+      "title": "The following syntax does not compile:\n\n<div *ngIf=\"showItems\" *ngFor=\"let item of items\">{{item}}</div>\n\nWhich alternative syntax would generate the exact same DOM structure as intended above?",
+      "options": [
+        "<div *ngIf=\"showItems\"><span *ngFor=\"let item of items\">{{item}}</span></div>",
+        "<ng-template *ngIf=\"showItems\"><div *ngFor=\"let item of items\">{{item}}</div></ng-template>",
+        "<div [hidden]=\"! showItems\" *ngFor=\"let item of items\">{{item}}</div>",
+        "<ng-container *ngIf=\"showItems\"><div *ngFor=\"let item of items\">{{item}}</div></ng-container>"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q16",
+      "title": "What is the purpose of the ViewChild decorator in this component example?\n\n@Component({\n  template: '<p #test></p>'\n})\nexport class UserDetailsComponent {\n  @ViewChild('test') test;\n}",
+      "options": [
+        "It makes the <p> tag in the template support content projection.",
+        "It indicates that the <p> tag be rendered as a child of the parent view that uses this component.",
+        "It provides access from within the component class to the ElementRef object for the <p> tag that has the test template reference variable.",
+        "It makes the <p> tag visible in the final render. If @ViewChild was not used in the class, then Angular would automatically hide the <p> tag that has #test on it."
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "q17",
+      "title": "Which of the following functions is not a part of the Signals API?",
+      "options": ["signal()", "computed()", "observable()", "effect()"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q18",
+      "title": "What's the value of a in this example?\n\nlet a = otherValue ?? 21",
+      "options": [
+        "12 if otherValue === 12, 21 if otherValue is {} or undefined",
+        "\"otherValue\"",
+        "12 if otherValue == 12, 21 if otherValue is null",
+        "12 if otherValue === 12, 21 if otherValue is null or undefined"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q19",
+      "title": "According to the following function signature:\n\nfunction setCurrency(value: number, currency: 'USD' | 'GBP')\n\nWhich of the following code examples would compile:",
+      "options": [
+        "setCurrency('10', 'GBP');",
+        "None of the above, the function syntax is incorrect",
+        "setCurrency(10, 'USD');",
+        "setCurrency(10);"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": "q20",
+      "title": "What does the following code output to the console?\n\nenum UserResponse {\n  No = 0,\n  Yes = 1,\n}\n\nconsole.log(UserResponse.Yes);",
+      "options": ["1", "Yes", "UserResponse.Yes", "[object Object]"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q21",
+      "title": "How many parameters does the following function expect?\n\nfunction test(a, b, ...c) {\n  // ...\n}",
+      "options": ["at least 2", "2 to 5", "exactly 3", "None, this function signature is incorrect"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q22",
+      "title": "Which of the following is not an Angular directive?",
+      "options": ["ngFor", "ngForm", "ngClass", "ngBind"],
+      "correctIndex": 3
+    },
+    {
+      "id": "q23",
+      "title": "Which of these options is the correct syntax for pipe parameters?",
+      "options": [
+        "{{ amount | currency :: '$' }}",
+        "None of the above - all are incorrect",
+        "{{ amount | currency | 'USD' }}",
+        "{{ amount | currency : 'USD' }}"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q24",
+      "title": "What is the HostBinding decorator doing in this directive?\n\n@Directive({ selector: '[appHighlight]' })\nexport class HighlightDirective {\n  @HostBinding('class.highlighted') highlight = true;\n}",
+      "options": [
+        "It is creating an inline style on the host element with a CSS property named highlighted set to true.",
+        "It is adding the CSS class named highlighted to any DOM element that has the appHighlight attribute on it.",
+        "It is adding the CSS class named highlighted to any DOM element for which the tag name is appHighlight.",
+        "HostBinding does not do anything on directives, it only works with components."
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q25",
+      "title": "What is the proper syntax to display a list of names in div elements when display is true?",
+      "options": [
+        "<div *ngIf=\"display\" *ngFor=\"let name of names\">{{name}}</div>",
+        "<ng-container *ngIf=\"display\"><div *ngFor=\"let name of names\">{{name}}</div></ng-container>",
+        "<ng-template *ngIf=\"display\"><div *ngFor=\"let name of names\">{{name}}</div></ng-template>",
+        "<ng-switch *ngSwitchCase=\"display\"><div *ngFor=\"let name of names\">{{name}}</div></ng-switch>"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q26",
+      "title": "In Angular, which of the following decorators is used to register a class as a service?",
+      "options": ["@Injectable", "@NgService", "@Inject", "@Service"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q27",
+      "title": "Can the following class be injected into a component as-is?\n\n@Injectable()\nexport class CartService {\n  constructor(private http: HttpClient) {}\n  getCartContents() {\n    // Some code\n  }\n}",
+      "options": [
+        "No, it has to be added to an array of providers first",
+        "No, that code does not compile",
+        "Yes",
+        "No, it does not have the @Service decorator"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "q28",
+      "title": "According to the following code, how many instances of TokenService can we have in an Angular application?\n\n@Injectable({ providedIn: 'root' })\nexport class TokenService {\n  // ...\n}",
+      "options": ["One", "Zero or one", "One per module", "It could be any number of instances"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q29",
+      "title": "One of the following syntaxes is correct for injecting a LoginService in LoginComponent. Which one is it?",
+      "options": [
+        "myService = inject(LoginService);",
+        "@Injectable() loginService: LoginService;",
+        "loginService = constructor(loginService: LoginService);",
+        "loginservice = create(LoginService)"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "q30",
+      "title": "In Angular, what is the purpose of the router-outlet tag?",
+      "options": [
+        "It indicates where routed components will be rendered",
+        "It defines the root component of the application",
+        "It's a way to embed an iframe in an Angular application",
+        "It specifies navigation links for the user"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "q31",
+      "title": "Considering the following router config, which component will be rendered when a user navigates to /products/21?\n\nRouterModule.forRoot([\n  { path: '', component: ProductListComponent },\n  { path: 'products/:productId', component: ProductDetailsComponent }\n])",
+      "options": [
+        "None; there is no mapping for that route",
+        "ProductDetailsComponent",
+        "A 404 page would show up",
+        "ProductListComponent"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q32",
+      "title": "Which of the following is not an existing guard function that can be used with the Angular router?",
+      "options": ["CanActivateChild", "CanLoad", "CanNavigate", "CanDeactivate"],
+      "correctIndex": 2
+    },
+    {
+      "id": "q33",
+      "title": "What is one requirement for this syntax to work?\n\nloadComponent: () => import('./admin/admin.component').then(comp => comp.AdminComponent)",
+      "options": [
+        "AdminComponent must be a standalone component",
+        "AdminComponent must be in a lazy-loaded module",
+        "This syntax does not work",
+        "AdminComponent must be the default export in its source file"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "q34",
+      "title": "Which of the following is an incorrect statement regarding RxJS observables?",
+      "options": [
+        "They are objects we subscribe to",
+        "They make our code synchronous",
+        "They are used by the HttpClient of Angular",
+        "They are a way to work with asynchronous data"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": "q35",
+      "title": "When using Rxjs Observables, what does the .pipe() method do?",
+      "options": [
+        "It enables the use of Angular pipes with RxJs",
+        "It automatically subscribes and unsubscribes from an Observable",
+        "It turns an Observable into an Angular pipe",
+        "It enables chaining multiple RxJs operators"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q36",
+      "title": "What does the RxJs map() operator do?",
+      "options": [
+        "Applies a given function to each array emitted by the source Observable, and returns the resulting values as an Observable of arrays",
+        "Applies a given function to the source Observable, subscribes to it, and emits the resulting values as an Observable",
+        "Applies a given function to each value emitted by the source Observable, and returns the resulting values as an array",
+        "Applies a given function to each value emitted by the source Observable, and emits the resulting values as an Observable"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q37",
+      "title": "Which of the following is a common use case for switchMap in Angular?",
+      "options": [
+        "Turning an Observable into a Signal",
+        "Managing application state",
+        "Creating animations",
+        "Making HTTP requests based on user input, like searching or fetching data"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "id": "q38",
+      "title": "What is the name of the Angular service used to create reactive forms?",
+      "options": ["FormService", "FormControl", "FormFactory", "FormBuilder"],
+      "correctIndex": 3
+    },
+    {
+      "id": "q39",
+      "title": "Which event is emitted when the value of a form control changes in Angular reactive forms?",
+      "options": ["valueChanges", "update", "input", "controlChanges"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q40",
+      "title": "Which syntax is used to access the underlying NgForm instance in a template-driven form?",
+      "options": ["#form=\"ngForm\"", "#model=\"ngModel\"", "[ngForm]=\"value\"", "Turning an Observable into a Signal"],
+      "correctIndex": 0
     }
   ]
 }

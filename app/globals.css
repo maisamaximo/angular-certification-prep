@@ -241,3 +241,27 @@ body{
     font-weight:800;
     color:rgba(255,255,255,0.92);
 }
+
+/* Progress bar */
+.progressBar{
+    height:4px;
+    width:100%;
+    background:rgba(255,255,255,0.12);
+    border-radius:999px;
+    overflow:hidden;
+    margin-bottom:14px;
+}
+
+.progressFill{
+    height:100%;
+    transition: width 0.3s ease;
+}
+
+/* Review highlights */
+.reviewCorrect{
+    background: rgba(34,197,94,0.14) !important;
+}
+
+.reviewWrong{
+    background: rgba(239,68,68,0.14) !important;
+}
