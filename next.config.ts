@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
+
+const repo = "angular-certification-prep"
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+    output: "export",
+    trailingSlash: true,
+    images: {
+        unoptimized: true
+    },
+    basePath: `/${repo}`,
+    assetPrefix: `/${repo}/`
+}
 
-export default nextConfig;
+export default nextConfig
