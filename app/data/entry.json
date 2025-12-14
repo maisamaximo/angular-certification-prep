@@ -1,0 +1,18 @@
+{
+  "level": "entry",
+  "title": "Entry Level",
+  "questions": [
+    {
+      "id": "q1",
+      "title": "Which directive is used for conditional rendering in Angular templates",
+      "options": ["*ngIf", "*ngFor", "ngModel", "routerLink"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q2",
+      "title": "Which file typically defines the root component in an Angular project",
+      "options": ["main.ts", "app.component.ts", "angular.json", "tsconfig.json"],
+      "correctIndex": 1
+    }
+  ]
+}

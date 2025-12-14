@@ -1,65 +1,235 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+import { useEffect, useMemo, useRef, useState } from "react"
+import LevelTabs from "@/app/components/LevelTabs"
+import QuizCard from "@/app/components/QuizCard"
+import ToastBar from "@/app/components/ToastBar"
+import entry from "@/app/data/entry.json"
+import meet from "@/app/data/mid.json"
+import senior from "@/app/data/senior.json"
+import type { LevelKey, QuizData, PersistedLevelState } from "@/app/lib/types"
+import { clearAllStates, loadLevelState, saveLevelState } from "@/app/lib/storage"
+
+const DATA: Record<LevelKey, QuizData> = {
+    entry: entry as QuizData,
+    meet: meet as QuizData,
+    senior: senior as QuizData
+}
+
+function accentOf(level: LevelKey) {
+    if (level === "entry") return "var(--entry)"
+    if (level === "meet") return "var(--meet)"
+    return "var(--senior)"
+}
+
+function buildInitialState(level: LevelKey): PersistedLevelState {
+    const total = DATA[level].questions.length
+    return {
+        level,
+        currentIndex: 0,
+        answers: Array.from({ length: total }, () => null),
+        submitted: Array.from({ length: total }, () => false),
+        score: 0
+    }
+}
+
+export default function Page() {
+    const [level, setLevel] = useState<LevelKey>("meet")
+    const [state, setState] = useState<PersistedLevelState>(() => buildInitialState("meet"))
+
+    const [toastOpen, setToastOpen] = useState(false)
+    const [toastKind, setToastKind] = useState<"success" | "error">("success")
+    const [toastMessage, setToastMessage] = useState("")
+
+    const [showReview, setShowReview] = useState(false)
+
+    const autoNextTimer = useRef<number | null>(null)
+
+    const quiz = useMemo(() => DATA[level], [level])
+    const total = quiz.questions.length
+    const current = quiz.questions[state.currentIndex]
+
+    const selectedIndex = state.answers[state.currentIndex]
+    const isSubmitted = state.submitted[state.currentIndex]
+
+    useEffect(() => {
+        const saved = loadLevelState(level)
+        setState(saved ?? buildInitialState(level))
+
+        if (autoNextTimer.current) {
+            window.clearTimeout(autoNextTimer.current)
+            autoNextTimer.current = null
+        }
+
+        setToastOpen(false)
+        setShowReview(false)
+    }, [level])
+
+    useEffect(() => {
+        saveLevelState(state)
+    }, [state])
+
+    useEffect(() => {
+        return () => {
+            if (autoNextTimer.current) {
+                window.clearTimeout(autoNextTimer.current)
+                autoNextTimer.current = null
+            }
+        }
+    }, [])
+
+    function refreshAll() {
+        clearAllStates()
+
+        if (autoNextTimer.current) {
+            window.clearTimeout(autoNextTimer.current)
+            autoNextTimer.current = null
+        }
+
+        setToastOpen(false)
+        setShowReview(false)
+        setLevel("meet")
+        setState(buildInitialState("meet"))
+    }
+
+    function onSelect(index: number) {
+        setState((s) => {
+            if (s.submitted[s.currentIndex]) return s
+            const answers = [...s.answers]
+            answers[s.currentIndex] = index
+            return { ...s, answers }
+        })
+    }
+
+    function submit() {
+        if (selectedIndex === null) return
+        if (isSubmitted) return
+
+        const correct = current.correctIndex === selectedIndex
+
+        setState((s) => {
+            const submitted = [...s.submitted]
+            submitted[s.currentIndex] = true
+            return { ...s, submitted, score: correct ? s.score + 1 : s.score }
+        })
+
+        setToastKind(correct ? "success" : "error")
+        setToastMessage(correct ? "Correct" : "Wrong")
+        setToastOpen(true)
+
+        if (autoNextTimer.current) window.clearTimeout(autoNextTimer.current)
+
+        autoNextTimer.current = window.setTimeout(() => {
+            setToastOpen(false)
+            setState((s) => {
+                const nextIndex = Math.min(s.currentIndex + 1, total - 1)
+                return { ...s, currentIndex: nextIndex }
+            })
+            autoNextTimer.current = null
+        }, 900)
+    }
+
+    const finished = state.submitted.every(Boolean)
+    const percent = Math.round((state.score / total) * 100)
+
+    return (
+        <div className="container">
+            <ToastBar show={toastOpen} message={toastMessage} kind={toastKind} accent={accentOf(level)} />
+
+            <div className="topRow">
+                <LevelTabs level={level} onChange={setLevel} />
+                <button className="refreshBtn" type="button" onClick={refreshAll}>
+                    Refresh
+                </button>
+            </div>
+
+            <div className="levelTitleRow">
+                <h2 className="levelTitle">{quiz.title}</h2>
+                <div className="counter">
+                    {state.currentIndex + 1} / {total}
+                </div>
+            </div>
+
+            {!finished && (
+                <>
+                    <QuizCard
+                        question={current}
+                        selectedIndex={selectedIndex}
+                        isSubmitted={isSubmitted}
+                        onSelect={onSelect}
+                    />
+
+                    <button
+                        className="cta"
+                        type="button"
+                        onClick={submit}
+                        disabled={selectedIndex === null || isSubmitted}
+                        style={{ background: accentOf(level) }}
+                    >
+                        Submit
+                    </button>
+
+                    <div className="footerHint">Answers are saved automatically in localStorage</div>
+                </>
+            )}
+
+            {finished && (
+                <div className="card">
+                    <div className="cardInner">
+                        <h2 className="questionTitle">Result</h2>
+
+                        <div className="resultLine">
+                            You got <b>{state.score}</b> out of <b>{total}</b>
+                        </div>
+
+                        <div className="resultLine">
+                            Percentage <b>{percent}%</b>
+                        </div>
+
+                        {!showReview && (
+                            <button
+                                className="cta"
+                                type="button"
+                                onClick={() => setShowReview(true)}
+                                style={{ background: accentOf(level), marginTop: 18 }}
+                            >
+                                Review answers
+                            </button>
+                        )}
+
+                        {showReview && (
+                            <div className="reviewList">
+                                {quiz.questions.map((q, idx) => {
+                                    const user = state.answers[idx]
+                                    const correctIndex = q.correctIndex
+                                    const isCorrect = user === correctIndex
+
+                                    return (
+                                        <div key={q.id} className={`reviewCard ${isCorrect ? "reviewOk" : "reviewBad"}`}>
+                                            <div className="reviewQ">{q.title}</div>
+                                            <div className="reviewA">
+                                                Your answer <span className="mono">{user === null ? "No answer" : q.options[user]}</span>
+                                            </div>
+                                            <div className="reviewC">
+                                                Correct <span className="mono">{q.options[correctIndex]}</span>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
+
+                        <button
+                            className="cta"
+                            type="button"
+                            onClick={refreshAll}
+                            style={{ background: accentOf(level), marginTop: 18 }}
+                        >
+                            Restart
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    )
 }

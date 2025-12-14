@@ -1,0 +1,18 @@
+{
+  "level": "senior",
+  "title": "Senior Level",
+  "questions": [
+    {
+      "id": "q1",
+      "title": "Which RxJS operator is commonly used to share a single subscription among multiple subscribers",
+      "options": ["shareReplay", "map", "filter", "scan"],
+      "correctIndex": 0
+    },
+    {
+      "id": "q2",
+      "title": "In Angular what is the main benefit of OnPush change detection",
+      "options": ["Faster builds", "Reduced change detection work", "Better routing", "Smaller bundle always"],
+      "correctIndex": 1
+    }
+  ]
+}
